@@ -22,7 +22,7 @@ make
 first terminal:
 
 ```
-fgfs --generic=socket,in,1,,10540,udp,binary-protocol
+fgfs --timeofday=morning --geometry=640x480 --generic=socket,in,1,,6789,udp,binary-protocol
 ```
 
 second terminal:
