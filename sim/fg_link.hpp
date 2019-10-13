@@ -20,19 +20,37 @@ typedef struct {
 	bool starter;
 } flightgear_ctl_data;
 
+typedef struct {
+	double roll;
+	double pitch;
+	double yaw;
+} flightgear_recv_data;
+
 class flightgear_link_udp {
 	public:
-	flightgear_link_udp(char* ip_addr, int port);
+	void connect_receiver(char *ip_addr, int port);
+	void connect_transmitter(char *ip_addr, int port);
 	int _close();
 	int send_ctl(flightgear_ctl_data *ctl);
 
 	private:
-	struct sockaddr_in socket_addr_in;
-	struct sockaddr *socket_addr;
-	int socket_addr_size;
-	char *ip_addr;
-	int port;
-	int  socket_fd;
+	struct {
+		struct sockaddr_in socket_addr_in;
+		struct sockaddr *socket_addr;
+		int socket_addr_size;
+		char *ip_addr;
+		int port;
+		int  socket_fd;
+	} in;
+
+	struct {
+		struct sockaddr_in socket_addr_in;
+		struct sockaddr *socket_addr;
+		int socket_addr_size;
+		char *ip_addr;
+		int port;
+		int  socket_fd;
+	} out;
 
 	private:
 	int send(const void *msg, int size);

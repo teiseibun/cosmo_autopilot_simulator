@@ -7,7 +7,9 @@ using namespace std;
 
 int main()
 {
-	flightgear_link_udp fg_link((char *)"127.0.0.1", 6789);
+	flightgear_link_udp fg_link;
+	fg_link.connect_receiver((char *)"127.0.0.1", 6789);
+	fg_link.connect_transmitter((char *)"127.0.0.1", 6666);
 
 	cout << "0: turn off engine\n"
 		"1: turn on engine\n"
