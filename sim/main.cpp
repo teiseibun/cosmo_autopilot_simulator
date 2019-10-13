@@ -16,7 +16,18 @@ int main()
 		"------------------\n";
 
 	flightgear_ctl_data fg_ctl = {0};
+	flightgear_recv_data fg_recv = {0};
 
+	/* receiver test */
+	while(1) {
+		printf("start\n");
+		int ret = fg_link.recv_onboard(&fg_recv);
+		printf("roll:%lf pitch:%lf yaw:%lf\n", fg_recv.roll, fg_recv.pitch, fg_recv.yaw);
+		//sleep(0.5);
+		//printf("%d\n", ret);
+	}
+
+	/* sender test */
 	while(1) {
 		char c = getc(stdin);
 

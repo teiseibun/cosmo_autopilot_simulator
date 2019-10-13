@@ -21,18 +21,12 @@ typedef struct {
 } flightgear_ctl_data;
 
 typedef struct {
-	double roll;
-	double pitch;
-	double yaw;
+	float roll;
+	float pitch;
+	float yaw;
 } flightgear_recv_data;
 
 class flightgear_link_udp {
-	public:
-	void connect_receiver(char *ip_addr, int port);
-	void connect_transmitter(char *ip_addr, int port);
-	int _close();
-	int send_ctl(flightgear_ctl_data *ctl);
-
 	private:
 	struct {
 		struct sockaddr_in socket_addr_in;
@@ -54,6 +48,14 @@ class flightgear_link_udp {
 
 	private:
 	int send(const void *msg, int size);
+	int recv(void *msg, int size, socklen_t *addr_len);
+
+	public:
+	void connect_receiver(char *ip_addr, int port);
+	void connect_transmitter(char *ip_addr, int port);
+	int _close();
+	int send_ctl(flightgear_ctl_data *ctl);
+	int recv_onboard(flightgear_recv_data *recv);
 };
 
 #endif
