@@ -41,9 +41,7 @@ void flightgear_link_udp::connect_transmitter(char *ip_addr, int port)
 	//initialize a sockaddr struct pointer from sockaddr_in struct
 	this->in.socket_addr = (struct sockaddr *)&this->in.socket_addr_in;
 
-	if (bind(this->in.socket_fd, this->in.socket_addr, this->in.socket_addr_size) == -1) {
-		printf("bind failed\n");
-	}
+	bind(this->in.socket_fd, this->in.socket_addr, this->in.socket_addr_size); 
 }
 
 int flightgear_link_udp::send(const void *msg, int size)
@@ -56,13 +54,8 @@ int flightgear_link_udp::send(const void *msg, int size)
 
 int flightgear_link_udp::recv(void *msg, int size, socklen_t *addr_len)
 {
-	char buff[100] = {0};
-
-	int ret = recvfrom(this->in.socket_fd, buff, 100, 0,
+	int ret = recvfrom(this->in.socket_fd, msg, size, 0,
 			   this->in.socket_addr, addr_len);
-
-	//printf("test:%d\n", ret);
-
 	return ret;
 }
 
